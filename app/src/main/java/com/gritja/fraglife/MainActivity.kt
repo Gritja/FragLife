@@ -23,8 +23,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.gritja.fraglife.R
 import com.gritja.fraglife.ui.theme.FragLifeTheme
+import java.util.regex.Pattern
 
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
 
     private lateinit var sharedPrefs: SharedPreferences
 
@@ -33,7 +34,7 @@ class MainActivity : ComponentActivity() {
         setContentView(R.layout.activity_main)
 
         val atoolbar: Toolbar = findViewById(R.id.my_toolbar)
-        setActionBar(atoolbar)
+        setSupportActionBar(atoolbar)
 
         val userName = findViewById<EditText>(R.id.user_name)
         val userPassword = findViewById<EditText>(R.id.user_password)
@@ -45,14 +46,28 @@ class MainActivity : ComponentActivity() {
             Toast.makeText(this, "User registered", Toast.LENGTH_LONG).show()
         }
 
-        // val db = FirestoreUtil.getInstance();
-
         sharedPrefs = getSharedPreferences("user_credentials", Context.MODE_PRIVATE)
 
         userName.setText(sharedPrefs.getString("user_name"), ""))
         userPassword.setText(sharedPrefs.getString("user_password"), ""))
 
         loginButton.setOnClickListener {
+
+            val uNamePattern = Pattern.compile("^[a-zA-Z0-9]+$")
+            //checks alphanumeric
+            val pWordPattern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$")
+//checks at least 1 uppercase, 1 lowercase, 1 digit, 1 special character and at least 8 characters in length
+            // registerActivity
+
+            fun isValidUsername(username: String): Boolean {
+                return uNamePattern.matcher(username).matches()
+            }
+
+            fun isValidPassword(password: String): Boolean {
+                return pWordPattern.matcher(password).matches()
+            }
+            //registerActivity
+
             val userNameEntered = userName.text.toString()
             val passwordEntered = userPassword.text.toString()
 
