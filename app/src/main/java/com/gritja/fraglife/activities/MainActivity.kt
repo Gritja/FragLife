@@ -1,4 +1,4 @@
-package com.gritja.fraglife
+package com.gritja.fraglife.activities
 
 import android.content.Context
 import android.content.Intent
@@ -9,21 +9,9 @@ import android.view.MenuItem
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import androidx.activity.ComponentActivity
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import com.gritja.fraglife.R
-import com.gritja.fraglife.ui.theme.FragLifeTheme
-import java.util.regex.Pattern
 
 class MainActivity : AppCompatActivity() {
 
@@ -33,8 +21,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val atoolbar: Toolbar = findViewById(R.id.my_toolbar)
-        setSupportActionBar(atoolbar)
+        val toolbar: Toolbar = findViewById(R.id.nav_toolbar)
+        setSupportActionBar(toolbar)
 
         val userName = findViewById<EditText>(R.id.user_name)
         val userPassword = findViewById<EditText>(R.id.user_password)
@@ -48,25 +36,10 @@ class MainActivity : AppCompatActivity() {
 
         sharedPrefs = getSharedPreferences("user_credentials", Context.MODE_PRIVATE)
 
-        userName.setText(sharedPrefs.getString("user_name"), ""))
+        /*userName.setText(sharedPrefs.getString("user_name"), ""))
         userPassword.setText(sharedPrefs.getString("user_password"), ""))
 
         loginButton.setOnClickListener {
-
-            val uNamePattern = Pattern.compile("^[a-zA-Z0-9]+$")
-            //checks alphanumeric
-            val pWordPattern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$")
-//checks at least 1 uppercase, 1 lowercase, 1 digit, 1 special character and at least 8 characters in length
-            // registerActivity
-
-            fun isValidUsername(username: String): Boolean {
-                return uNamePattern.matcher(username).matches()
-            }
-
-            fun isValidPassword(password: String): Boolean {
-                return pWordPattern.matcher(password).matches()
-            }
-            //registerActivity
 
             val userNameEntered = userName.text.toString()
             val passwordEntered = userPassword.text.toString()
@@ -78,6 +51,7 @@ class MainActivity : AppCompatActivity() {
             }
             Toast.makeText(this, "Invalid credentials", Toast.LENGTH_SHORT).show()
         }
+       */
 
         registerButton.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
@@ -116,8 +90,8 @@ class MainActivity : AppCompatActivity() {
 
         val editor = sharedPrefs.edit()
 
-        editor.putString("userName", findViewById<EditText>(R.id.user_name).text.toString)
-        editor.putString("userPassword", findViewById<EditText>(R.id.user_password).text.toString)
+        editor.putString("userName", findViewById<EditText>(R.id.user_name).text.toString())
+        editor.putString("userPassword", findViewById<EditText>(R.id.user_password).text.toString())
 
         editor.apply()
     }
