@@ -21,6 +21,7 @@ class RegisterActivity : AppCompatActivity() {
 
         val firstName = findViewById<EditText>(R.id.firstname)
         val lastName = findViewById<EditText>(R.id.lastname)
+        val userEmail = findViewById<EditText>(R.id.useremail)
         val userName = findViewById<EditText>(R.id.username)
         val userPassword = findViewById<EditText>(R.id.userpassword)
         val registerButton = findViewById<Button>(R.id.registerbutton)
