@@ -16,6 +16,7 @@ import com.gritja.fraglife.R
 class MainActivity : AppCompatActivity() {
 
     private lateinit var sharedPrefs: SharedPreferences
+    private var loggedIn = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,8 +37,8 @@ class MainActivity : AppCompatActivity() {
 
         sharedPrefs = getSharedPreferences("user_credentials", Context.MODE_PRIVATE)
 
-        /*userName.setText(sharedPrefs.getString("user_name"), ""))
-        userPassword.setText(sharedPrefs.getString("user_password"), ""))
+        userName.setText(sharedPrefs.getString("user_name", ""))
+        userPassword.setText(sharedPrefs.getString("user_password", ""))
 
         loginButton.setOnClickListener {
 
@@ -45,13 +46,15 @@ class MainActivity : AppCompatActivity() {
             val passwordEntered = userPassword.text.toString()
 
             if (userNameEntered == "admin" && passwordEntered == "123") {
+                loggedIn = true;
                 val intent = Intent(this, SecondActivity::class.java)
                 startActivity(intent)
-                return@addSuccessListener
+            } else {
+                Toast.makeText(this, "Invalid credentials", Toast.LENGTH_SHORT).show()
             }
-            Toast.makeText(this, "Invalid credentials", Toast.LENGTH_SHORT).show()
+
         }
-       */
+
 
         registerButton.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
@@ -90,8 +93,8 @@ class MainActivity : AppCompatActivity() {
 
         val editor = sharedPrefs.edit()
 
-        editor.putString("userName", findViewById<EditText>(R.id.user_name).text.toString())
-        editor.putString("userPassword", findViewById<EditText>(R.id.user_password).text.toString())
+        editor.putString("user_name", findViewById<EditText>(R.id.user_name).text.toString())
+        editor.putString("user_password", findViewById<EditText>(R.id.user_password).text.toString())
 
         editor.apply()
     }

@@ -5,7 +5,10 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.EditText
+import android.widget.RadioGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.gritja.fraglife.R
@@ -24,7 +27,9 @@ class RegisterActivity : AppCompatActivity() {
         val userEmail = findViewById<EditText>(R.id.useremail)
         val userName = findViewById<EditText>(R.id.username)
         val userPassword = findViewById<EditText>(R.id.userpassword)
-        val registerButton = findViewById<Button>(R.id.registerbutton)
+        val registerButton = findViewById<Button>(R.id.register_button)
+        val hasMeat = findViewById<CheckBox>(R.id.checkbox_meat)
+        val kindOfCheese = findViewById<RadioGroup>(R.id.cheese_radio)
 
         registerButton.setOnClickListener {
 
@@ -32,7 +37,8 @@ class RegisterActivity : AppCompatActivity() {
             //checks alphanumeric
             val pWordPattern =
                 Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$")
-//checks at least 1 uppercase, 1 lowercase, 1 digit, 1 special character and at least 8 characters in length
+            //checks at least 1 uppercase, 1 lowercase, 1 digit, 1 special character
+            //and at least 8 characters in length
 
             fun isValidUsername(username: String): Boolean {
                 return uNamePattern.matcher(username).matches()
@@ -40,6 +46,15 @@ class RegisterActivity : AppCompatActivity() {
 
             fun isValidPassword(password: String): Boolean {
                 return pWordPattern.matcher(password).matches()
+            }
+
+            val userNameChosen = userName.text.toString()
+            val passwordChosen = userPassword.text.toString()
+
+            if (isValidUsername(userNameChosen) && isValidPassword(passwordChosen)) {
+                Toast.makeText(this, "New user successfully registered!", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "User names are alphanumeric only. Passwords need to be 8 characters long, contain 1 uppercase, 1 lowercase, 1 digit and 1 special character.", Toast.LENGTH_SHORT).show()
             }
 
         }
