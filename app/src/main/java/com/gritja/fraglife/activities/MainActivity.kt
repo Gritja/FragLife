@@ -35,11 +35,6 @@ class MainActivity : AppCompatActivity() {
         val registerButton = findViewById<Button>(R.id.register_button)
         val loginButton = findViewById<Button>(R.id.login_button)
 
-        //val userRegistered = intent.getBooleanExtra("userRegistered", false)
-        //if (userRegistered) {
-        //    Toast.makeText(this, "User registered", Toast.LENGTH_LONG).show()
-        //}
-
         sharedPrefs = getSharedPreferences("user_credentials", Context.MODE_PRIVATE)
 
         userName.setText(sharedPrefs.getString("user_name", ""))
